@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="21px" height="15px" viewBox="0 0 21 15" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="The-home-page-of-the-portal" transform="translate(-1293.000000, -3982.000000)" fill="#1E2022">
+            <g id="bg" transform="translate(-1.000000, 65.000000)">
+                <g id="Triangles" transform="translate(915.000000, 1850.000000)">
+                    <path d="M385.704502,2067.2178 C385.994087,2066.9274 386.450081,2066.9274 386.739666,2067.2178 C387.020278,2067.49841 387.020278,2067.96338 386.739666,2068.24399 L381.488798,2073.49486 L398.816579,2073.49486 C399.221182,2073.49486 399.552369,2073.81707 399.552369,2074.21841 C399.552369,2074.62302 399.221182,2074.9542 398.816579,2074.9542 L381.488798,2074.9542 L386.739666,2080.1961 C387.020278,2080.48568 387.020278,2080.95473 386.739666,2081.23208 C386.450081,2081.52166 385.994087,2081.52166 385.704502,2081.23208 L379.210459,2074.73803 C378.929847,2074.45742 378.929847,2073.99246 379.210459,2073.71184 L385.704502,2067.2178 Z" id="arrow" transform="translate(389.276184, 2074.224633) rotate(-180.000000) translate(-389.276184, -2074.224633) "></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
