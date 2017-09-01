@@ -54,11 +54,12 @@ return [
 
         'mysql' => [
             'driver' => 'mysql',
+            'unix_socket'   => '/Applications/MAMP/tmp/mysql/mysql.sock',
             'host' => env('DB_HOST', 'localhost'),
             'port' => env('DB_PORT', '3306'),
-            'database' => env('DB_DATABASE', 'forge'),
-            'username' => env('DB_USERNAME', 'forge'),
-            'password' => env('DB_PASSWORD', ''),
+            'database' => env('DB_DATABASE', 'safety-academy'),
+            'username' => env('DB_USERNAME', 'root'),
+            'password' => env('DB_PASSWORD', '123123'),
             'charset' => 'utf8',
             'collation' => 'utf8_unicode_ci',
             'prefix' => '',

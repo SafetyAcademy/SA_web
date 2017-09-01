@@ -3,20 +3,20 @@
 @section('content')	
 	<div class="list">
 		<div class="courses">
-			@foreach($arr as $a)
+			@foreach($conferences as $item)
 				<div class="course">
-					<div class="course-date">{{ $a->DATE }}</div>
-					<div class="course-title"><img src="/uploads/9.png"><span>{{ $a->PROJECT_NAME }}</span></div>
-					@if (strpos($a->PROJECT_NAME, 'LRK') > 0)
+					<div class="course-date">{{ $item->date }}</div>
+					<div class="course-title"><img src="/uploads/9.png"><span>{{ $item->project_name }}</span></div>
+					@if (strpos($item->project_name, 'LRK') > 0)
 						<div class="course-desc">Livredningskurs hvor du lærer livredning i vann, samt hjerte-lungeredning med fokus på barn og voksne.</div>
-					@elseif (strpos($a->PROJECT_NAME, 'FHK BV') > 0)
+					@elseif (strpos($item->project_name, 'FHK BV') > 0)
 						<div class="course-desc">Førstehjelpskurs som gir deg grunnleggende kunnskaper og ferdigheter for å håndtere livstruende nødsituasjoner med barn og voksne.</div>
 					@else
 						<div class="course-desc"></div>
 					@endif
 					<div class="course-views">253 views</div>
 					<div class="course-comments">2 comments</div>
-					<a class="course-view" href="/courses/{{ $a->PROJECT_ID }}">VIEW COURSE</a>
+					<a class="course-view" href="/courses/{{ $item->project_id }}">VIEW COURSE</a>
 					<div class="clear"></div>
 				</div>
 			@endforeach

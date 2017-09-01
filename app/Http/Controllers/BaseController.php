@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\Conference;
 use Request;
 use Profiles;
 use Users;
@@ -248,6 +249,7 @@ class BaseController extends Controller
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		$out = curl_exec($curl);
 		$arr = json_decode($out);
+		$conferences = [];
 		curl_close($curl);
 		
 		$pages = ceil(count($arr)/7);
@@ -278,8 +280,10 @@ class BaseController extends Controller
 			
 			$arr[$k]->PROJECT_NAME = implode(', ', $temp1);
 			$arr[$k]->DATE = $temp[0];
+
+            array_push($conferences, Conference::fromObject($a));
 		}
 		
-		return view('conferenceAll', ['arr' => $arr, 'page' => $page, 'prev_page' => $prev_page, 'next_page' => $next_page]);
+		return view('conferenceAll', ['conferences' => $conferences, 'page' => $page, 'prev_page' => $prev_page, 'next_page' => $next_page]);
 	}
 }
