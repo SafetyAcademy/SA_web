@@ -275,12 +275,6 @@ class BaseController extends Controller
 		}
 		
 		foreach($arr as $k => $a) {
-//			$temp = explode(', ', $a->PROJECT_NAME);
-//			$temp1 = array_slice($temp, 1);
-//
-//			$arr[$k]->PROJECT_NAME = implode(', ', $temp1);
-//			$arr[$k]->DATE = $temp[0];
-
             array_push($conferences, Conference::fromObject($a));
 		}
 		
