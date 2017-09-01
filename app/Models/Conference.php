@@ -32,7 +32,7 @@ class Conference {
     public static function fromObject($object) {
         $conference = new Conference();
         $conference->project_id = $object->PROJECT_ID;
-        $conference->project_name = $object->PROJECT_NAME;
+        $conference->project_name = implode(', ', array_slice(explode(', ', $object->PROJECT_NAME), 1));
         $conference->status = $object->STATUS;
         $conference->project_details = $object->PROJECT_DETAILS;
         $conference->opportunity_id = $object->OPPORTUNITY_ID;
@@ -54,7 +54,7 @@ class Conference {
         $conference->links = $object->LINKS;
         $conference->can_edit = $object->CAN_EDIT;
         $conference->can_delete = $object->CAN_DELETE;
-        $conference->date = $object->DATE;
+        $conference->date = current(explode(', ', $object->PROJECT_NAME));
 
         return $conference;
     }
