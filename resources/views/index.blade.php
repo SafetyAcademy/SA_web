@@ -7,24 +7,24 @@
 @section('content')
 	<div class="head-text">Title<br />medical<br />conference</div>
 	<div class="clear"></div>
-	
+
 	<div class="conferences">
-		<a class="conferences-el" style="background: url('../uploads/1.jpg') no-repeat scroll 0 0;" href="/courses/{{ $arr[0]->PROJECT_ID }}">{{ $arr[0]->PROJECT_NAME }}<br />{{ $arr[0]->DATE }}</a>
-		<a class="conferences-el -bold"  style="background: url('../uploads/2.jpg') no-repeat scroll 0 0;" href="/courses/{{ $arr[1]->PROJECT_ID }}">{{ $arr[1]->PROJECT_NAME }}<br />{{ $arr[1]->DATE }}</a>
-		<a class="conferences-el" style="background: url('../uploads/1.jpg') no-repeat scroll 0 0;" href="/courses/{{ $arr[2]->PROJECT_ID }}">{{ $arr[2]->PROJECT_NAME }}<br />{{ $arr[2]->DATE }}</a>
+		<a class="conferences-el" style="background: url('../uploads/1.jpg') no-repeat scroll 0 0;" href="/courses/{{ $conference_slice[0]->project_id }}">{{ $conference_slice[0]->project_name }}<br />{{ $conference_slice[0]->date }}</a>
+		<a class="conferences-el -bold"  style="background: url('../uploads/2.jpg') no-repeat scroll 0 0;" href="/courses/{{ $conference_slice[1]->project_id }}">{{ $conference_slice[1]->project_name }}<br />{{ $conference_slice[1]->date }}</a>
+		<a class="conferences-el" style="background: url('../uploads/1.jpg') no-repeat scroll 0 0;" href="/courses/{{ $conference_slice[2]->project_id }}">{{ $conference_slice[2]->project_name }}<br />{{ $conference_slice[2]->date }}</a>
 		<div class="clear"></div>
 		<div class="conferences-el-all">
 			<a class="conferences-el-all-link" href="/courses/">All courses</a>
 		</div>
 	</div>
-	
+
 	<div class="register">
 		<div class="register-title">Register for the conference</div>
 		<input class="register-field" type="text" placeholder="E-mail address" value="">
 		<a class="register-join" href="#">Join now</a>
 		<div class="clear"></div>
 	</div>
-	
+
 	<div class="professionals">
 		<div class="professionals-title">Our medical professionals</div>
 		<div class="professionals-icons">
@@ -63,7 +63,7 @@
 			</div>
 		</div>
 	</div>
-	
+
 	<div class="list">
 		<div class="feed">
 			<div class="feed-article">
@@ -144,7 +144,7 @@
 					<p>The best quotes of the 2017</p>
 					<span>72 comments</span>
 					<div class="clear"></div>
-				</a>				
+				</a>
 				<a href="#" class="blocks-block-element">
 					<img src="/uploads/17.jpg">
 					<p>Beautiful Pictures of medical</p>

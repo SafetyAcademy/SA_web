@@ -18,6 +18,7 @@ class BaseController extends Controller {
         curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
         $out = curl_exec($curl);
         $arr = json_decode($out);
+        $conferenceSlice = [];
         curl_close($curl);
 
         usort(
@@ -33,14 +34,10 @@ class BaseController extends Controller {
         $arr = array_slice($arr, 0, 3);
 
         foreach ($arr as $k => $a) {
-            $temp = explode(', ', $a->PROJECT_NAME);
-            $temp1 = array_slice($temp, 1);
-
-            $arr[$k]->PROJECT_NAME = implode(', ', $temp1);
-            $arr[$k]->DATE = $temp[0];
+            array_push($conferenceSlice, Conference::fromObject($arr[$k]));
         }
 
-        return view('index', ['arr' => $arr]);
+        return view('index', ['conference_slice' => $conferenceSlice]);
     }
 
     public function home() {
