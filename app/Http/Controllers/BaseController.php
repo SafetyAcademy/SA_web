@@ -40,6 +40,32 @@ class BaseController extends Controller {
         return view('index', ['conference_slice' => $conferenceSlice]);
     }
 
+    public function sign_in() {
+        $email = Request::input('email');
+        $password = Request::input('password');
+
+        $error = false;
+
+        if (!empty($email) && !empty($password)) {
+            $user = Users::where([
+                'email' => $email,
+                'password' => md5($password)
+            ])->first();
+
+            if ($user) {
+                UserAuth::save($user);
+
+                return redirect('/');
+            } else {
+                $error = true;
+
+                return view('sign_in', ['error' => $error]);
+            }
+        }
+
+        return view('sign_in', ['error' => $error]);
+    }
+
     public function sign_up() {
         return view('sign_up', []);
     }
@@ -114,106 +140,10 @@ class BaseController extends Controller {
         return view('success', []);
     }
 
-    public function conference($project_id) {
-        $access = false;
-        $user = UserAuth::getUser();
-
-        if ($user) {
-            $pa = ProjectsAccess::where([
-                'user_id' => $user->id,
-                'project_id' => $project_id
-            ])->first();
-
-            if ($pa) {
-                $access = true;
-            }
-        }
-
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($curl, CURLOPT_USERPWD, "d3c58243-768c-4e88-a748-a5356aa6da97:");
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_URL, 'https://api.insight.ly/v2.2/Projects/' . $project_id);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        $out = curl_exec($curl);
-        $arr = json_decode($out);
-        $conference = [];
-        curl_close($curl);
-
-        foreach ($arr as $k => $a) {
-            array_push($conference, Conference::fromObject($arr));
-        }
-
-        return view('conference', ['conference' => $conference[0], 'access' => $access, 'arr' => $arr, 'user' => $user, 'project_id' => $project_id]);
-    }
-
-    public function sign_in() {
-        $email = Request::input('email');
-        $password = Request::input('password');
-
-        $error = false;
-
-        if (!empty($email) && !empty($password)) {
-            $user = Users::where([
-                'email' => $email,
-                'password' => md5($password)
-            ])->first();
-
-            if ($user) {
-                UserAuth::save($user);
-
-                return redirect('/');
-            } else {
-                $error = true;
-
-                return view('sign_in', ['error' => $error]);
-            }
-        }
-
-        return view('sign_in', ['error' => $error]);
-    }
-
     public function logout() {
         UserAuth::forget();
 
         return redirect('/');
-    }
-
-    public function conferenceLink($project_id) {
-        $user = UserAuth::getUser();
-
-        $pa = ProjectsAccess::where([
-            'user_id' => $user->id,
-            'project_id' => $project_id
-        ])->first();
-
-        if (!$pa) {
-            $pa = new ProjectsAccess;
-            $pa->user_id = $user->id;
-            $pa->project_id = $project_id;
-            $pa->save();
-
-            $ar = [
-                "CONTACT_ID" => UserAuth::getUserField('contact_id'),
-                "PROJECT_ID" => $project_id
-            ];
-
-            /*$curl = curl_init();
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($curl, CURLOPT_USERPWD, "03abf8d9-4a62-40b2-a102-7ad66ff12d78:");
-            curl_setopt($curl, CURLOPT_HEADER, 0);
-            curl_setopt($curl, CURLOPT_URL, 'https://api.insight.ly/v2.2/Contacts/'.UserAuth::getUserField('contact_id').'/Links');
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($ar));
-            $out = curl_exec($curl);
-            $arr = json_decode($out);
-            curl_close($curl);*/
-        }
-
-        return redirect('/courses/' . $project_id . '/');
     }
 
     public function conferenceAll() {
@@ -264,5 +194,75 @@ class BaseController extends Controller {
         }
 
         return view('conferenceAll', ['conferences' => $conferences, 'page' => $page, 'prev_page' => $prev_page, 'next_page' => $next_page]);
+    }
+
+    public function conference($project_id) {
+        $access = false;
+        $user = UserAuth::getUser();
+
+        if ($user) {
+            $pa = ProjectsAccess::where([
+                'user_id' => $user->id,
+                'project_id' => $project_id
+            ])->first();
+
+            if ($pa) {
+                $access = true;
+            }
+        }
+
+        $curl = curl_init();
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+        curl_setopt($curl, CURLOPT_USERPWD, "d3c58243-768c-4e88-a748-a5356aa6da97:");
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_URL, 'https://api.insight.ly/v2.2/Projects/' . $project_id);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+        $out = curl_exec($curl);
+        $arr = json_decode($out);
+        $conference = [];
+        curl_close($curl);
+
+        foreach ($arr as $k => $a) {
+            array_push($conference, Conference::fromObject($arr));
+        }
+
+        return view('conference', ['conference' => $conference[0], 'access' => $access, 'arr' => $arr, 'user' => $user, 'project_id' => $project_id]);
+    }
+
+    public function conferenceLink($project_id) {
+        $user = UserAuth::getUser();
+
+        $pa = ProjectsAccess::where([
+            'user_id' => $user->id,
+            'project_id' => $project_id
+        ])->first();
+
+        if (!$pa) {
+            $pa = new ProjectsAccess;
+            $pa->user_id = $user->id;
+            $pa->project_id = $project_id;
+            $pa->save();
+
+            $ar = [
+                "CONTACT_ID" => UserAuth::getUserField('contact_id'),
+                "PROJECT_ID" => $project_id
+            ];
+
+            /*$curl = curl_init();
+            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
+            curl_setopt($curl, CURLOPT_USERPWD, "03abf8d9-4a62-40b2-a102-7ad66ff12d78:");
+            curl_setopt($curl, CURLOPT_HEADER, 0);
+            curl_setopt($curl, CURLOPT_URL, 'https://api.insight.ly/v2.2/Contacts/'.UserAuth::getUserField('contact_id').'/Links');
+            curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
+            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
+            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
+            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($ar));
+            $out = curl_exec($curl);
+            $arr = json_decode($out);
+            curl_close($curl);*/
+        }
+
+        return redirect('/courses/' . $project_id . '/');
     }
 }
