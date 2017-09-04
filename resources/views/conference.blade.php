@@ -3,13 +3,14 @@
 @section('content')	
 	<div class="list">
 		<div class="conference">
-			<input id="link" type="text" value="{{ env('SITE_URL') }}/courses/{{ $arr->PROJECT_ID }}/" style="display: none;">
+			{{--{{print_r($conference)}}--}}
+			<input id="link" type="text" value="{{ env('SITE_URL') }}/courses/{{ $conference->project_id }}/" style="display: none;">
 			<a class="conference-link" data-clipboard-action="copy" data-clipboard-target="#link">Copy link to this course</a>
 			<div class="clear"></div>
-			<div class="conference-title"><img src="/uploads/9.png"><span>{{ $arr->PROJECT_NAME }}</span></div>
-			<div class="conference-date">{{ $arr->DATE }}</div>
+			<div class="conference-title"><img src="/uploads/9.png"><span>{{ $conference->project_name }}</span></div>
+			<div class="conference-date">{{ $conference->date }}</div>
 			<div class="clear"></div>
-			@if (strpos($arr->PROJECT_NAME, 'LRK') > 0)
+			@if (strpos($conference->project_name, 'LRK') > 0)
 				<p>
 					Fullt kurs: 4 - 5 timer, inkludert pauser.<br />
 					Oppfriskningskurs: 2 timer.<br />
@@ -73,7 +74,7 @@
 					<br />
 					På kursene stiller vi med mange førstehjelpsdukker, slik at deltakerne får god trening i hjerte-lungeredning (HLR/CPR). Deltakerne lærer å følge de samme prioriteringene som ambulansepersonell og leger benytter, for å gi pasienten størst mulig sjanse til å overleve. Kursene legger opp til mye praksis pakket inn med teori, slik at læringsutbyttet blir størst mulig. Ingen lærer førstehjelp og livredning bare ved å se og lytte; man må fysisk få prøve ferdigheter i praksis.<br />
 				</p>
-			@elseif (strpos($arr->PROJECT_NAME, 'FHK BV') > 0)
+			@elseif (strpos($conference->project_name, 'FHK BV') > 0)
 				<p>
 					Kursvarighet: 3-4 timer, inkludert pauser.<br />
 					<br />

@@ -21,12 +21,6 @@ class Conference {
     public $visible_to;
     public $visible_team_id;
     public $visible_user_ids;
-    public $customfields;
-    public $tags;
-    public $links;
-    public $can_edit;
-    public $can_delete;
-    public $date;
 
 
     public static function fromObject($object) {

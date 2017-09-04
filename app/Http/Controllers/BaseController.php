@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Models\ConferenceAll;
 use App\Models\Conference;
 use Request;
 use Profiles;
@@ -147,15 +148,14 @@ class BaseController extends Controller
 		curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
 		$out = curl_exec($curl);
 		$arr = json_decode($out);
+		$conference = [];
 		curl_close($curl);
-		
-		$temp = explode(', ', $arr->PROJECT_NAME);
-		$temp1 = array_slice($temp, 1);
-			
-		$arr->PROJECT_NAME = implode(', ', $temp1);
-		$arr->DATE = $temp[0];
-		
-		return view('conference', ['access' => $access, 'arr' => $arr, 'user' => $user, 'project_id' => $project_id]);
+
+        foreach($arr as $k => $a) {
+            array_push($conference, Conference::fromObject($arr));
+        }
+
+        return view('conference', ['conference' => $conference[0], 'access' => $access, 'arr' => $arr, 'user' => $user, 'project_id' => $project_id]);
 	}
 	
 	public function sign_in()
@@ -275,7 +275,7 @@ class BaseController extends Controller
 		}
 		
 		foreach($arr as $k => $a) {
-            array_push($conferences, Conference::fromObject($a));
+            array_push($conferences, ConferenceAll::fromObject($a));
 		}
 		
 		return view('conferenceAll', ['conferences' => $conferences, 'page' => $page, 'prev_page' => $prev_page, 'next_page' => $next_page]);
