@@ -40,11 +40,11 @@ class BaseController extends Controller {
         return view('index', ['conference_slice' => $conferenceSlice]);
     }
 
-    public function home() {
-        return view('form', []);
+    public function sign_up() {
+        return view('sign_up', []);
     }
 
-    public function form() {
+    public function register() {
         $ar = [
             "SALUTATION" => "",
             "FIRST_NAME" => Request::input('first_name'),

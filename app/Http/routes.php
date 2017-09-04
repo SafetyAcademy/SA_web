@@ -18,8 +18,8 @@ Route::post('/sign_in/',						'BaseController@sign_in');
 
 Route::get(	'/logout/',							'BaseController@logout');
 
-Route::get(	'/form/',							'BaseController@home');
-Route::post('/form/',							'BaseController@form');
+Route::get(	'/sign_up/',						'BaseController@sign_up');
+Route::post('/sign_up/',						'BaseController@register');
 
 Route::get(	'/courses/',						'BaseController@conferenceAll');
 Route::get(	'/courses/{project_id}/',			'BaseController@conference');
