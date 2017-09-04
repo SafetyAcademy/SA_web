@@ -1,6 +1,5 @@
 <?php namespace App\Http\Controllers;
 
-use App\Models\ConferenceAll;
 use App\Models\Conference;
 use Request;
 use Profiles;
@@ -275,7 +274,7 @@ class BaseController extends Controller
 		}
 		
 		foreach($arr as $k => $a) {
-            array_push($conferences, ConferenceAll::fromObject($a));
+            array_push($conferences, Conference::fromObject($a));
 		}
 		
 		return view('conferenceAll', ['conferences' => $conferences, 'page' => $page, 'prev_page' => $prev_page, 'next_page' => $next_page]);
