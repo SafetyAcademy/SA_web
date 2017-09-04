@@ -1,9 +1,8 @@
 @extends('layouts.main')
 
-@section('content')	
+@section('content')
 	<div class="list">
 		<div class="conference">
-			{{--{{print_r($conference)}}--}}
 			<input id="link" type="text" value="{{ env('SITE_URL') }}/courses/{{ $conference->project_id }}/" style="display: none;">
 			<a class="conference-link" data-clipboard-action="copy" data-clipboard-target="#link">Copy link to this course</a>
 			<div class="clear"></div>
@@ -96,7 +95,7 @@
 					Brannskader<br />
 					Vi kan tilpasse kursets innhold etter krav og ønsker fra bedrifter.<br />
 					<br />
-					<br /> 
+					<br />
 					KURSET PASSER BLANT ANNET FOR:<br />
 					<br />
 					Foreldre<br />
@@ -141,7 +140,7 @@
 					<p>The best quotes of the 2017</p>
 					<span>72 comments</span>
 					<div class="clear"></div>
-				</a>				
+				</a>
 				<a href="#" class="blocks-block-element">
 					<img src="/uploads/17.jpg">
 					<p>Beautiful Pictures of medical</p>
