@@ -201,12 +201,17 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
+
         'Result' => App\Libraries\Result::class,
         'Users' => App\Libraries\Users::class,
         'Profiles' => App\Libraries\Profiles::class,
         'UserAuth' => App\Libraries\UserAuth::class,
         'ProjectsAccess' => App\Libraries\ProjectsAccess::class,
+
+        'Project' => App\Models\Project::class,
+        'Projects' => App\Models\Projects::class,
+        'Conference' => App\Models\Conference::class,
+        'Register' => App\Models\Register::class,
 
     ],
 
