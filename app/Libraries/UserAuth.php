@@ -1,8 +1,9 @@
-<?php namespace App\Libraries;
-	
+<?php
+
+namespace App\Libraries;
+
 use Session;
-use Profiles;
-use Users;
+use Profiles as Profile;
 
 abstract class UserAuth
 {
@@ -14,45 +15,45 @@ abstract class UserAuth
 	    	return false;
 	    endif;
 	}
-	
+
 	public static function forget()
 	{
-		Session::forget('user');	
-		
+		Session::forget('user');
+
 		return false;
 	}
-	
+
 	public static function save($user)
 	{
 		Session::put('user', $user);
 		Session::save();
-		
+
 		return false;
 	}
-	
+
 	public static function getUserField($field)
 	{
 		if (Session::has('user')) {
 			$user = Session::get('user');
-			
-			$profile = Profiles::where([
+
+			$profile = Profile::where([
 								'user_id'	=> $user['id']
 							])->first();
-							
+
 			return $profile[$field];
 		}
-		
+
 		return false;
 	}
-	
+
 	public static function getUser()
 	{
 		if (Session::has('user')) {
 			$user = Session::get('user');
-							
+
 			return $user;
 		}
-		
+
 		return false;
 	}
 }
