@@ -1,6 +1,9 @@
-<?php namespace App\Http\Controllers;
+<?php
+
+namespace App\Http\Controllers;
 
 use App\Models\Conference;
+use App\Models\Projects;
 use Request;
 use Profiles;
 use Users;
@@ -9,29 +12,8 @@ use ProjectsAccess;
 
 class BaseController extends Controller {
     public function index() {
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($curl, CURLOPT_USERPWD, "d3c58243-768c-4e88-a748-a5356aa6da97:");
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_URL, 'https://api.insight.ly/v2.2/Projects/Search?brief=true&count_total=false&status=not%20started');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        $out = curl_exec($curl);
-        $arr = json_decode($out);
+        $arr = array_slice(Projects::fromAPI(), 0, 3);
         $conferenceSlice = [];
-        curl_close($curl);
-
-        usort(
-            $arr,
-            function ($a, $b) {
-                if ($a->PROJECT_NAME == $b->PROJECT_NAME) {
-                    return 0;
-                }
-                return ($a->PROJECT_NAME < $b->PROJECT_NAME) ? -1 : 1;
-            }
-        );
-
-        $arr = array_slice($arr, 0, 3);
 
         foreach ($arr as $k => $a) {
             array_push($conferenceSlice, Conference::fromObject($arr[$k]));
@@ -156,38 +138,18 @@ class BaseController extends Controller {
         }
         $next_page = $page + 1;
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($curl, CURLOPT_USERPWD, "d3c58243-768c-4e88-a748-a5356aa6da97:");
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_URL, 'https://api.insight.ly/v2.2/Projects/Search?brief=true&count_total=false&status=not%20started');
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        $out = curl_exec($curl);
-        $arr = json_decode($out);
-        $conferences = [];
-        curl_close($curl);
-
-        $pages = ceil(count($arr) / 7);
+        $pages = ceil(count(Projects::fromAPI()) / 7);
         if ($next_page > $pages || $next_page == $pages) {
             $next_page = false;
         }
 
-        usort(
-            $arr,
-            function ($a, $b) {
-                if ($a->PROJECT_NAME == $b->PROJECT_NAME) {
-                    return 0;
-                }
-                return ($a->PROJECT_NAME < $b->PROJECT_NAME) ? -1 : 1;
-            }
-        );
-
         if ($page > 1) {
-            $arr = array_slice($arr, (($page - 1) * 7) - 1, 7);
+            $arr = array_slice(Projects::fromAPI(), (($page - 1) * 7) - 1, 7);
         } else {
-            $arr = array_slice($arr, 0, 7);
+            $arr = array_slice(Projects::fromAPI(), 0, 7);
         }
+
+        $conferences = [];
 
         foreach ($arr as $k => $a) {
             array_push($conferences, Conference::fromObject($a));
