@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Conference;
-use App\Models\Project;
-use App\Models\Projects;
+use Conference;
+use Project;
+use Projects;
 use Request;
 use Profiles;
 use Users;
@@ -99,7 +99,7 @@ class BaseController extends Controller {
         $user = new Users;
         $user->email = Request::input('email');
         $user->password = md5(Request::input('pass'));
-        $user->token = md5(time());
+        $user->remember_token = md5(time());
         $user->save();
 
         $profile = new Profiles;
