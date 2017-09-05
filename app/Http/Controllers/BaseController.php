@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Conference;
+use App\Models\Project;
 use App\Models\Projects;
 use Request;
 use Profiles;
@@ -173,23 +174,14 @@ class BaseController extends Controller {
             }
         }
 
-        $curl = curl_init();
-        curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-        curl_setopt($curl, CURLOPT_USERPWD, "d3c58243-768c-4e88-a748-a5356aa6da97:");
-        curl_setopt($curl, CURLOPT_HEADER, 0);
-        curl_setopt($curl, CURLOPT_URL, 'https://api.insight.ly/v2.2/Projects/' . $project_id);
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-        $out = curl_exec($curl);
-        $arr = json_decode($out);
         $conference = [];
-        curl_close($curl);
+        $arr = Project::fromAPI($project_id);
 
         foreach ($arr as $k => $a) {
             array_push($conference, Conference::fromObject($arr));
         }
 
-        return view('conference', ['conference' => $conference[0], 'access' => $access, 'arr' => $arr, 'user' => $user, 'project_id' => $project_id]);
+         return view('conference', ['conference' => $conference[0], 'access' => $access, 'arr' => $arr, 'user' => $user, 'project_id' => $project_id]);
     }
 
     public function conferenceLink($project_id) {
