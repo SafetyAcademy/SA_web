@@ -11,16 +11,16 @@
 |
 */
 
-Route::get(	'/',								'BaseController@index');
+Route::get('/', 'BaseController@index');
 
-Route::get(	'/sign_in/',						'BaseController@sign_in');
-Route::post('/sign_in/',						'BaseController@sign_in');
+Route::get('/sign_in/', 'BaseController@sign_in');
+Route::post('/sign_in/', 'BaseController@sign_in');
 
-Route::get(	'/logout/',							'BaseController@logout');
+Route::get('/logout/', 'BaseController@logout');
 
-Route::get(	'/sign_up/',						'BaseController@sign_up');
-Route::post('/sign_up/',						'BaseController@register');
+Route::get('/sign_up/', 'BaseController@sign_up');
+Route::post('/sign_up/', 'BaseController@register');
 
-Route::get(	'/courses/',						'BaseController@conferenceAll');
-Route::get(	'/courses/{project_id}/',			'BaseController@conference');
-Route::get(	'/courses/accept/{project_id}/',	'BaseController@conferenceLink');
+Route::get('/courses/', 'BaseController@conferenceAll');
+Route::get('/courses/{project_id}/', 'BaseController@conference');
+Route::get('/courses/accept/{project_id}/', 'BaseController@conferenceLink');
