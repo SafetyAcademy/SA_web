@@ -3,7 +3,7 @@
 namespace App\Libraries;
 
 use Session;
-use Profiles as Profile;
+use Profiles as Local_Profile;
 
 abstract class UserAuth
 {
@@ -36,7 +36,7 @@ abstract class UserAuth
 		if (Session::has('user')) {
 			$user = Session::get('user');
 
-			$profile = Profile::where([
+			$profile = Local_Profile::where([
 								'user_id'	=> $user['id']
 							])->first();
 
