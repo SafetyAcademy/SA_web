@@ -55,13 +55,13 @@ class BaseController extends Controller {
     }
 
     public function register() {
-        $arr = Register::fromRequest();
-        $user = Register::registerUser();
-        Register::registerProfile($user, $arr);
-
-        UserAuth::save($user);
-
-        return view('success', []);
+        $param = Request::only(['email', 'pass', 'first_name', 'last_name', 'street', 'city', 'country', 'postcode']);
+        if (Register::fromRequest($param)) {
+            return view('success', []);
+        }  else {
+            $error = true;
+            return view('sign_up', ['error' => $error]);
+        }
     }
 
     public function logout() {
