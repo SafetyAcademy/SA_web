@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('content')	
+@section('content')
 	<div class="workarea">
 		<h1>Sign Up</h1>
 		<div class="reg-form-error">Funnet feil under fylling av formen</div>
@@ -15,7 +15,8 @@
 			</div>-->
 			<div class="reg-form-block -req">
 				<label>E-post*</label>
-				<input name="email" value="">
+				<input name="email" value="{{{ $data['email'] or '' }}}">
+                <div style="color: red">{{{ $err['email'] or '' }}}</div>
 			</div>
 			<!--<div class="reg-form-block -req">
 				<label>Epostbekreftelse*</label>
@@ -23,19 +24,23 @@
 			</div>-->
 			<div class="reg-form-block -req">
 				<label>Password*</label>
-				<input type="password" name="pass" value="">
+				<input type="password" name="pass" value="{{{ $data['pass'] or '' }}}">
+                <div style="color: red">{{{ $err['pass'] or '' }}}</div>
 			</div>
 			<div class="reg-form-block -req">
 				<label>Repeat password*</label>
-				<input type="password" name="pass_1" value="">
+				<input type="password" name="pass_1" value="{{{ $data['pass_1'] or '' }}}">
+                <div style="color: red">{{{ $err['pass_1'] or '' }}}</div>
 			</div>
 			<div class="reg-form-block -req">
 				<label>Fornavn*</label>
-				<input name="first_name" value="">
+				<input name="first_name" value="{{{ $data['first_name'] or '' }}}">
+                <div style="color: red">{{{ $err['first_name'] or '' }}}</div>
 			</div>
 			<div class="reg-form-block -req">
 				<label>Mobile Etternavn*</label>
-				<input name="last_name" value="">
+				<input name="last_name" value="{{ $data['last_name'] or '' }}">
+                <div style="color: red">{!! $err['last_name'] or '' !!}</div>
 			</div>
 			<!--<div class="reg-form-block">
 				<label>Firm</label>
@@ -43,15 +48,18 @@
 			</div>-->
 			<div class="reg-form-block -req">
 				<label>Gateadresse*</label>
-				<input name="street" value="">
+				<input name="street" value="{{ $data['street'] or '' }}">
+                <div style="color: red">{!! $err['street'] or '' !!}</div>
 			</div>
 			<div class="reg-form-block">
 				<label>Postnr</label>
-				<input name="postcode" value="">
+				<input name="postcode" value="{{ $data['postcode'] or '' }}">
+                <div style="color: red">{!! $err['postcode'] or '' !!}</div>
 			</div>
 			<div class="reg-form-block -req">
 				<label>By/Sted*</label>
-				<input name="city" value="">
+				<input name="city" value="{{ $data['city'] or '' }}">
+                <div style="color: red">{!! $err['city'] or '' !!}</div>
 			</div>
 			<!--<div class="reg-form-block -req">
 				<label>Tel.*</label>
@@ -64,8 +72,9 @@
 			<div class="reg-form-block -req">
 				<label>Land*</label>
 				<input name="country" value="Norway">
+                <div style="color: red">{!! $err['country'] or '' !!}</div>
 				<div>Required fields are marked with an asterisk(*) must be filled in.</div>
-			</div>	
+			</div>
 			<div>
 				<input class="reg-form-button" type="submit" value="Register">
 			</div>

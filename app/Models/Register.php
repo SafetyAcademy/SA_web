@@ -11,20 +11,23 @@ use Profiles;
 
 class Register {
     public static function fromRequest($params) {
-        $paramsAPI = RegisterService::buildParams($params);
 
-        if ($paramsAPI) {
-            $res = (new APIService())->build($paramsAPI)->post('Contacts');
+        if (empty(RegisterService::buildParams($params)['errors'])) {
+            $paramsAPI = RegisterService::buildParams($params)['data'];
 
-            $user = self::registerUser($params);
-            self::registerProfile($user, $res);
+            if ($paramsAPI) {
+                $res = (new APIService())->build($paramsAPI)->post('Contacts');
 
-            UserAuth::save($user);
+                $user = self::registerUser($params);
+                self::registerProfile($user, $res);
 
-            return $res;
+                UserAuth::save($user);
+
+                return $res;
+            }
         }
 
-        return false;
+        return RegisterService::buildParams($params);
     }
 
     public static function registerUser($params) {

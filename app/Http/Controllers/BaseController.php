@@ -55,12 +55,12 @@ class BaseController extends Controller {
     }
 
     public function register() {
-        $param = Request::only(['email', 'pass', 'first_name', 'last_name', 'street', 'city', 'country', 'postcode']);
-        if (Register::fromRequest($param)) {
+        $param = Request::only(['email', 'pass', 'pass_1', 'first_name', 'last_name', 'street', 'city', 'country', 'postcode']);
+        $res = (array)Register::fromRequest($param);
+        if ((empty($res['errors']) === true)) {
             return view('success', []);
         }  else {
-            $error = true;
-            return view('sign_up', ['error' => $error]);
+            return view('sign_up', ['err' => $res['errors'], 'data' => $param]);
         }
     }
 
