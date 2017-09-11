@@ -2,7 +2,7 @@
 
 namespace App\Models;
 
-class Conference {
+class Conference extends APIModel {
     public $project_id;
     public $project_name;
     public $status;
@@ -22,34 +22,44 @@ class Conference {
     public $visible_team_id;
     public $visible_user_ids;
 
-
     public static function fromObject($object) {
         $conference = new Conference();
-        $conference->project_id = $object->PROJECT_ID;
-        $conference->project_name = implode(', ', array_slice(explode(', ', $object->PROJECT_NAME), 1));
-        $conference->status = $object->STATUS;
-        $conference->project_details = $object->PROJECT_DETAILS;
-        $conference->opportunity_id = $object->OPPORTUNITY_ID;
-        $conference->started_date = $object->STARTED_DATE;
-        $conference->completed_date = $object->COMPLETED_DATE;
-        $conference->image_url = $object->IMAGE_URL;
-        $conference->responsible_user_id = $object->RESPONSIBLE_USER_ID;
-        $conference->owner_user_id = $object->OWNER_USER_ID;
-        $conference->date_created_utc = $object->DATE_CREATED_UTC;
-        $conference->date_updated_utc = $object->DATE_UPDATED_UTC;
-        $conference->category_id = $object->CATEGORY_ID;
-        $conference->pipeline_id = $object->PIPELINE_ID;
-        $conference->stage_id = $object->STAGE_ID;
-        $conference->visible_to = $object->VISIBLE_TO;
-        $conference->visible_team_id = $object->VISIBLE_TEAM_ID;
-        $conference->visible_user_ids = $object->VISIBLE_USER_IDS;
-        $conference->customfields = $object->CUSTOMFIELDS;
-        $conference->tags = $object->TAGS;
-        $conference->links = $object->LINKS;
-        $conference->can_edit = $object->CAN_EDIT;
-        $conference->can_delete = $object->CAN_DELETE;
-        $conference->date = current(explode(', ', $object->PROJECT_NAME));
-
+        $conference->deserialize($object, [
+            'PROJECT_ID' => 'project_id',
+            'PROJECT_NAME' => array(
+                'field' => 'project_name',
+                'value' => function() use ($object) {
+                    return implode(', ', array_slice(explode(', ', $object->PROJECT_NAME), 1));
+                },
+            ),
+            'STATUS' => 'status',
+            'PROJECT_DETAILS' => 'project_details',
+            'OPPORTUNITY_ID' => 'opportunity_id',
+            'STARTED_DATE' => 'started_date',
+            'COMPLETED_DATE' => 'completed_date',
+            'IMAGE_URL' => 'image_url',
+            'RESPONSIBLE_USER_ID' => 'responsible_user_id',
+            'OWNER_USER_ID' => 'owner_user_id',
+            'DATE_CREATED_UTC' => 'date_created_utc',
+            'DATE_UPDATED_UTC' => 'date_updated_utc',
+            'CATEGORY_ID' => 'category_id',
+            'PIPELINE_ID' => 'pipeline_id',
+            'STAGE_ID' => 'stage_id',
+            'VISIBLE_TO' => 'visible_to',
+            'VISIBLE_TEAM_ID' => 'visible_team_id',
+            'VISIBLE_USER_IDS' => 'visible_user_ids',
+            'CUSTOMFIELDS' => 'customfields',
+            'TAGS' => 'tags',
+            'LINKS' => 'links',
+            'CAN_EDIT' => 'can_edit',
+            'CAN_DELETE' => 'can_delete',
+            'DATE' => array(
+                'field' => 'date',
+                'default' => function () use ($object) {
+                    return current(explode(', ', $object->PROJECT_NAME));
+                },
+            ),
+        ]);
         return $conference;
     }
 }

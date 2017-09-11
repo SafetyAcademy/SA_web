@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('content')	
+@section('content')
 	<div class="list">
 		<div class="courses">
 			@foreach($conferences as $item)
@@ -46,7 +46,7 @@
 					<p>The best quotes of the 2017</p>
 					<span>72 comments</span>
 					<div class="clear"></div>
-				</a>				
+				</a>
 				<a href="#" class="blocks-block-element">
 					<img src="/uploads/17.jpg">
 					<p>Beautiful Pictures of medical</p>
