@@ -3,24 +3,6 @@
 namespace App\Models;
 
 class Conference extends APIModel {
-    public $project_id;
-    public $project_name;
-    public $status;
-    public $project_details;
-    public $opportunity_id;
-    public $started_date;
-    public $completed_date;
-    public $image_url;
-    public $responsible_user_id;
-    public $owner_user_id;
-    public $date_created_utc;
-    public $date_updated_utc;
-    public $category_id;
-    public $pipeline_id;
-    public $stage_id;
-    public $visible_to;
-    public $visible_team_id;
-    public $visible_user_ids;
 
     public static function fromObject($object) {
         $conference = new Conference();
