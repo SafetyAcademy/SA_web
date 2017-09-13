@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use ProjectsService;
 use Register;
 use Conference;
 use Project;
@@ -14,7 +15,7 @@ use ProjectsAccess;
 
 class BaseController extends Controller {
     public function index() {
-        $arr = array_slice(Projects::fromAPI(), 0, 3);
+        $arr = array_slice(ProjectsService::getAll(), 0, 3);
         $conferenceSlice = [];
 
         foreach ($arr as $k => $a) {
@@ -80,15 +81,26 @@ class BaseController extends Controller {
         }
         $next_page = $page + 1;
 
-        $pages = ceil(count(Projects::fromAPI()) / 7);
+        $arr = ProjectsService::getAll();
+        usort(
+            $arr,
+            function ($a, $b) {
+                if ($a->PROJECT_NAME == $b->PROJECT_NAME) {
+                    return 0;
+                }
+                return ($a->PROJECT_NAME < $b->PROJECT_NAME) ? -1 : 1;
+            }
+        );
+
+        $pages = ceil(count($arr) / 7);
         if ($next_page > $pages || $next_page == $pages) {
             $next_page = false;
         }
 
         if ($page > 1) {
-            $arr = array_slice(Projects::fromAPI(), (($page - 1) * 7) - 1, 7);
+            $arr = array_slice($arr, (($page - 1) * 7) - 1, 7);
         } else {
-            $arr = array_slice(Projects::fromAPI(), 0, 7);
+            $arr = array_slice($arr, 0, 7);
         }
 
         $conferences = [];
@@ -116,7 +128,7 @@ class BaseController extends Controller {
         }
 
         $conference = [];
-        $arr = Project::fromAPI($project_id);
+        $arr = ProjectsService::getById($project_id);
 
         foreach ($arr as $k => $a) {
             array_push($conference, Conference::fromObject($arr));
@@ -134,7 +146,7 @@ class BaseController extends Controller {
         ])->first();
 
         if (!$pa) {
-            $pa = new ProjectsAccess;
+            $pa = new ProjectsAccess();
             $pa->user_id = $user->id;
             $pa->project_id = $project_id;
             $pa->save();

@@ -208,11 +208,12 @@ return [
         'UserAuth' => App\Libraries\UserAuth::class,
         'ProjectsAccess' => App\Libraries\ProjectsAccess::class,
 
+        'ProjectsService' => App\Services\ProjectsService::class,
+
         'Project' => App\Models\Project::class,
         'Projects' => App\Models\Projects::class,
         'Conference' => App\Models\Conference::class,
         'Register' => App\Models\Register::class,
-
     ],
 
 ];
