@@ -156,18 +156,18 @@ class BaseController extends Controller {
                 "PROJECT_ID" => $project_id
             ];
 
-            /*$curl = curl_init();
+            $curl = curl_init();
             curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($curl, CURLOPT_USERPWD, "03abf8d9-4a62-40b2-a102-7ad66ff12d78:");
+            curl_setopt($curl, CURLOPT_USERPWD, env('CURL_USERPWD'));
             curl_setopt($curl, CURLOPT_HEADER, 0);
-            curl_setopt($curl, CURLOPT_URL, 'https://api.insight.ly/v2.2/Contacts/'.UserAuth::getUserField('contact_id').'/Links');
+            curl_setopt($curl, CURLOPT_URL, env('CURL_URL') .'Contacts/'. UserAuth::getUserField('contact_id').'/Links');
             curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
             curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
             curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
             curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($ar));
             $out = curl_exec($curl);
             $arr = json_decode($out);
-            curl_close($curl);*/
+            curl_close($curl);
         }
 
         return redirect('/courses/' . $project_id . '/');
