@@ -16,6 +16,7 @@ class CreateProjectsAccessTable extends Migration
             $table->increments('id');
             $table->string('user_id');
             $table->string('project_id');
+            $table->timestamps();
         });
     }
 
