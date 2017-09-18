@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\ConferenceAccept;
 use ProjectsService;
 use Register;
 use Conference;
@@ -146,28 +147,16 @@ class BaseController extends Controller {
         ])->first();
 
         if (!$pa) {
-            $pa = new ProjectsAccess();
-            $pa->user_id = $user->id;
-            $pa->project_id = $project_id;
-            $pa->save();
+            (new ProjectsAccess([
+                'user_id' => $user->id,
+                'project_id' => $project_id
+                ]
+            ))->save();
 
-            $ar = [
-                "CONTACT_ID" => UserAuth::getUserField('contact_id'),
-                "PROJECT_ID" => $project_id
-            ];
-
-            $curl = curl_init();
-            curl_setopt($curl, CURLOPT_HTTPHEADER, array('Content-Type: application/json'));
-            curl_setopt($curl, CURLOPT_USERPWD, env('CURL_USERPWD'));
-            curl_setopt($curl, CURLOPT_HEADER, 0);
-            curl_setopt($curl, CURLOPT_URL, env('CURL_URL') .'Contacts/'. UserAuth::getUserField('contact_id').'/Links');
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER,true);
-            curl_setopt($curl, CURLOPT_CUSTOMREQUEST, 'POST');
-            curl_setopt($curl, CURLOPT_SSL_VERIFYPEER, false);
-            curl_setopt($curl, CURLOPT_POSTFIELDS, json_encode($ar));
-            $out = curl_exec($curl);
-            $arr = json_decode($out);
-            curl_close($curl);
+            ConferenceAccept::fromRequest([
+                'contact_id' => UserAuth::getUserField('contact_id'),
+                'project_id' => $project_id
+            ]);
         }
 
         return redirect('/courses/' . $project_id . '/');
