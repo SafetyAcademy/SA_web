@@ -203,16 +203,19 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
 
         'Result' => App\Libraries\Result::class,
-        'Users' => App\Libraries\Users::class,
-        'Profiles' => App\Libraries\Profiles::class,
+        'User' => App\Libraries\User::class,
+        'Profile' => App\Libraries\Profile::class,
         'UserAuth' => App\Libraries\UserAuth::class,
         'ProjectsAccess' => App\Libraries\ProjectsAccess::class,
 
+        'APIService' => App\Services\APIService::class,
+        'ProjectAcceptService' => App\Services\ProjectAcceptService::class,
         'ProjectsService' => App\Services\ProjectsService::class,
+        'RegisterService' => App\Services\RegisterService::class,
+        'ValidateService' => App\Services\ValidateService::class,
 
-        'Project' => App\Models\Project::class,
-        'Projects' => App\Models\Projects::class,
         'Conference' => App\Models\Conference::class,
+        'ConferenceAccept' => App\Models\ConferenceAccept::class,
         'Register' => App\Models\Register::class,
     ],
 

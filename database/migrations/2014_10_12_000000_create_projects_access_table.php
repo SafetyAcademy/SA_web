@@ -3,18 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProjectsAccessTable extends Migration
-{
+class CreateProjectsAccessTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('projects_access', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('user_id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('project_id');
             $table->timestamps();
         });
@@ -25,8 +24,7 @@ class CreateProjectsAccessTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::drop('projects_access');
     }
 }

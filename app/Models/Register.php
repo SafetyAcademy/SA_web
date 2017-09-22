@@ -2,12 +2,12 @@
 
 namespace App\Models;
 
-use App\Libraries\UserAuth;
-use App\Services\APIService;
-use App\Services\RegisterService;
+use UserAuth;
+use APIService;
+use RegisterService;
 use Request;
-use Users;
-use Profiles;
+use User;
+use Profile;
 
 class Register {
     public static function fromRequest($params) {
@@ -31,7 +31,7 @@ class Register {
     }
 
     public static function registerUser($params) {
-        $user = new Users;
+        $user = new User;
         $user->name = $params['first_name'].' '.$params['last_name'];
         $user->email = $params['email'];
         $user->password = md5($params['pass']);
@@ -42,7 +42,7 @@ class Register {
     }
 
     public static function registerProfile($user, $arr) {
-        $profile = new Profiles;
+        $profile = new Profile;
         $profile->user_id = $user->id;
         $profile->contact_id = $arr->CONTACT_ID;
         //$profile->name = Request::input('name');

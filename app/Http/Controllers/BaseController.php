@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\ConferenceAccept;
+use ConferenceAccept;
 use ProjectsService;
 use Register;
 use Conference;
-use Project;
-use Projects;
 use Request;
-use Profiles;
-use Users;
+use Profile;
+use User;
 use UserAuth;
 use ProjectsAccess;
 
@@ -118,11 +116,7 @@ class BaseController extends Controller {
         $user = UserAuth::getUser();
 
         if ($user) {
-            $pa = ProjectsAccess::where([
-                'user_id' => $user->id,
-                'project_id' => $project_id
-            ])->first();
-
+            $pa = $user->projects_accesses()->where('project_id', $project_id)->first();
             if ($pa) {
                 $access = true;
             }
@@ -141,17 +135,10 @@ class BaseController extends Controller {
     public function conferenceLink($project_id) {
         $user = UserAuth::getUser();
 
-        $pa = ProjectsAccess::where([
-            'user_id' => $user->id,
-            'project_id' => $project_id
-        ])->first();
+        $pa = $user->projects_accesses()->where('project_id', $project_id)->first();
 
         if (!$pa) {
-            (new ProjectsAccess([
-                'user_id' => $user->id,
-                'project_id' => $project_id
-                ]
-            ))->save();
+            $user->projects_accesses()->create(['project_id' => $project_id]);
 
             ConferenceAccept::fromRequest([
                 'contact_id' => UserAuth::getUserField('contact_id'),

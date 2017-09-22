@@ -3,17 +3,17 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateProfilesTable extends Migration
-{
+class CreateProfilesTable extends Migration {
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up()
-    {
+    public function up() {
         Schema::create('profiles', function (Blueprint $table) {
-            $table->increments('user_id');
+            $table->increments('id');
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->references('user_id')->on('users');
             $table->string('contact_id');
             $table->string('first_name');
             $table->string('last_name');
@@ -30,8 +30,7 @@ class CreateProfilesTable extends Migration
      *
      * @return void
      */
-    public function down()
-    {
+    public function down() {
         Schema::drop('profiles');
     }
 }

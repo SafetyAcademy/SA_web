@@ -1,19 +1,19 @@
 <?php namespace App\Http\Controllers;
 
-use Users;
+use User;
 use Request;
 use Result;
 
-class UsersController extends Controller
+class UserController extends Controller
 {
 	public function signup()
     {
 	    $user = false;
-	    
+
 	    if (!empty(Request::input('email')) && Request::input('password')) {
-	    	$user = Users::signup(Request::input('email'), Request::input('password'));
+	    	$user = User::signup(Request::input('email'), Request::input('password'));
 	    }
-	    
+
 	    if (!$user) {
 		    return Result::build()
 	        			->setError(true)
@@ -29,15 +29,15 @@ class UsersController extends Controller
 						])->asJson();
 	    }
     }
-    
+
     public function login()
     {
 	    $user = false;
-	    
+
 	    if (!empty(Request::input('email')) && Request::input('password')) {
-	    	$user = Users::login(Request::input('email'), Request::input('password'));
+	    	$user = User::login(Request::input('email'), Request::input('password'));
 	    }
-	    
+
 	    if (!$user) {
 		    return Result::build()
 	        			->setError(true)
@@ -53,7 +53,7 @@ class UsersController extends Controller
 						])->asJson();
 	    }
     }
-    
+
     public function forgot()
     {
 		return Result::build()

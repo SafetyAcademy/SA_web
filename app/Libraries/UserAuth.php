@@ -3,57 +3,51 @@
 namespace App\Libraries;
 
 use Session;
-use Profiles as Local_Profile;
+use Profile as Local_Profile;
 
-abstract class UserAuth
-{
-	public static function check()
-	{
-		if (Session::has('user')):
-	    	return Session::get('user');
-	    else:
-	    	return false;
-	    endif;
-	}
+abstract class UserAuth {
+    public static function check() {
+        if (Session::has('user')):
+            return Session::get('user');
+        else:
+            return false;
+        endif;
+    }
 
-	public static function forget()
-	{
-		Session::forget('user');
+    public static function forget() {
+        Session::forget('user');
 
-		return false;
-	}
+        return false;
+    }
 
-	public static function save($user)
-	{
-		Session::put('user', $user);
-		Session::save();
+    public static function save($user) {
+        Session::put('user', $user);
+        Session::save();
 
-		return false;
-	}
+        return false;
+    }
 
-	public static function getUserField($field)
-	{
-		if (Session::has('user')) {
-			$user = Session::get('user');
+    public static function getUserField($field) {
+        if (Session::has('user')) {
+            $user = Session::get('user');
 
-			$profile = Local_Profile::where([
-								'user_id'	=> $user['id']
-							])->first();
+            $profile = Local_Profile::where([
+                'user_id' => $user['id']
+            ])->first();
 
-			return $profile[$field];
-		}
+            return $profile[$field];
+        }
 
-		return false;
-	}
+        return false;
+    }
 
-	public static function getUser()
-	{
-		if (Session::has('user')) {
-			$user = Session::get('user');
+    public static function getUser() {
+        if (Session::has('user')) {
+            $user = Session::get('user');
 
-			return $user;
-		}
+            return $user;
+        }
 
-		return false;
-	}
+        return false;
+    }
 }
