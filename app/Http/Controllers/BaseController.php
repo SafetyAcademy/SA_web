@@ -31,7 +31,7 @@ class BaseController extends Controller {
         $error = false;
 
         if (!empty($email) && !empty($password)) {
-            $user = Users::where([
+            $user = User::where([
                 'email' => $email,
                 'password' => md5($password)
             ])->first();
