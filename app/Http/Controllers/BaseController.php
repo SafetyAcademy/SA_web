@@ -133,7 +133,7 @@ class BaseController extends Controller {
     }
 
     public function conferenceLink($project_id) {
-        $user = UserAuth::getUser();
+        $user = UserAuth::currentUser();
 
         $pa = $user->projects_accesses()->where('project_id', $project_id)->first();
 

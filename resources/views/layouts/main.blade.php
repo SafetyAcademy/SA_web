@@ -31,7 +31,7 @@
 					<a class="header-right-login" href="/sign_in/">Sign in Portal</a>
 					<button class="header-right-signup" data="/sign_up/">Sign Up Portal</button>
 				@else
-					<a class="header-right-login" href="/logout/">{{ UserAuth::getUserField('first_name') }} {{ UserAuth::getUserField('last_name') }}</a>
+					<a class="header-right-login" href="/logout/">{{ UserAuth::currentUser()->fullName() }}</a>
 				@endif
 				<a class="header-right-lang" href="#">
 					Norway

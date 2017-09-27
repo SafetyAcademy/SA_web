@@ -3,7 +3,7 @@
 namespace App\Libraries;
 
 use Session;
-use Profile as Local_Profile;
+use Profile as _Profile;
 
 abstract class UserAuth {
     public static function check() {
@@ -31,9 +31,8 @@ abstract class UserAuth {
         if (Session::has('user')) {
             $user = Session::get('user');
 
-            $profile = Local_Profile::where([
-                'user_id' => $user['id']
-            ])->first();
+            $profile = $user->profile;
+
 
             return $profile[$field];
         }
@@ -49,5 +48,15 @@ abstract class UserAuth {
         }
 
         return false;
+    }
+
+    public static function currentUser() {
+        $current = null;
+
+        if (Session::has('user')) {
+            $current = Session::get('user');
+        }
+
+        return $current;
     }
 }

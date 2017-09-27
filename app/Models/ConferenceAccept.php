@@ -2,8 +2,8 @@
 
 namespace App\Models;
 
-use App\Services\ProjectAcceptService;
-use App\Services\APIService;
+use ProjectAcceptService;
+use APIService;
 
 class ConferenceAccept extends APIModel {
 

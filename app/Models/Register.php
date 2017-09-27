@@ -38,12 +38,12 @@ class Register {
         $user->remember_token = md5(time());
         $user->save();
 
-        return $user;
+        return $user->fresh();
     }
 
     public static function registerProfile($user, $arr) {
         $profile = new Profile;
-        $profile->user_id = $user->id;
+        $profile->user_id = $user->user_id;
         $profile->contact_id = $arr->CONTACT_ID;
         //$profile->name = Request::input('name');
         //$profile->username = Request::input('username');
