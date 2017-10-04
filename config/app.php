@@ -155,6 +155,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -201,13 +202,24 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
-        
+        'PDF' => Barryvdh\DomPDF\Facade::class,
+
         'Result' => App\Libraries\Result::class,
-        'Users' => App\Libraries\Users::class,
-        'Profiles' => App\Libraries\Profiles::class,
+        'User' => App\Libraries\User::class,
+        'Profile' => App\Libraries\Profile::class,
         'UserAuth' => App\Libraries\UserAuth::class,
         'ProjectsAccess' => App\Libraries\ProjectsAccess::class,
 
+        'APIService' => App\Services\APIService::class,
+        'ProjectAcceptService' => App\Services\ProjectAcceptService::class,
+        'ProjectsService' => App\Services\ProjectsService::class,
+        'RegisterService' => App\Services\RegisterService::class,
+        'ValidateService' => App\Services\ValidateService::class,
+
+        'Conference' => App\Models\Conference::class,
+        'ConferenceAccept' => App\Models\ConferenceAccept::class,
+        'ConferenceCert' => App\Models\ConferenceCert::class,
+        'Register' => App\Models\Register::class,
     ],
 
 ];

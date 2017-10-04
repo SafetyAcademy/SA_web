@@ -1,15 +1,15 @@
 @extends('layouts.main')
 
-@section('content')	
+@section('content')
 	<div class="list">
 		<div class="conference">
-			<input id="link" type="text" value="{{ env('SITE_URL') }}/courses/{{ $arr->PROJECT_ID }}/" style="display: none;">
+			<input id="link" type="text" value="{{ env('SITE_URL') }}/courses/{{ $conference->project_id }}/" style="display: none;">
 			<a class="conference-link" data-clipboard-action="copy" data-clipboard-target="#link">Copy link to this course</a>
 			<div class="clear"></div>
-			<div class="conference-title"><img src="/uploads/9.png"><span>{{ $arr->PROJECT_NAME }}</span></div>
-			<div class="conference-date">{{ $arr->DATE }}</div>
+			<div class="conference-title"><img src="/uploads/9.png"><span>{{ $conference->project_name }}</span></div>
+			<div class="conference-date">{{ $conference->date }}</div>
 			<div class="clear"></div>
-			@if (strpos($arr->PROJECT_NAME, 'LRK') > 0)
+			@if (strpos($conference->project_name, 'LRK') > 0)
 				<p>
 					Fullt kurs: 4 - 5 timer, inkludert pauser.<br />
 					Oppfriskningskurs: 2 timer.<br />
@@ -73,7 +73,7 @@
 					<br />
 					På kursene stiller vi med mange førstehjelpsdukker, slik at deltakerne får god trening i hjerte-lungeredning (HLR/CPR). Deltakerne lærer å følge de samme prioriteringene som ambulansepersonell og leger benytter, for å gi pasienten størst mulig sjanse til å overleve. Kursene legger opp til mye praksis pakket inn med teori, slik at læringsutbyttet blir størst mulig. Ingen lærer førstehjelp og livredning bare ved å se og lytte; man må fysisk få prøve ferdigheter i praksis.<br />
 				</p>
-			@elseif (strpos($arr->PROJECT_NAME, 'FHK BV') > 0)
+			@elseif (strpos($conference->project_name, 'FHK BV') > 0)
 				<p>
 					Kursvarighet: 3-4 timer, inkludert pauser.<br />
 					<br />
@@ -95,7 +95,7 @@
 					Brannskader<br />
 					Vi kan tilpasse kursets innhold etter krav og ønsker fra bedrifter.<br />
 					<br />
-					<br /> 
+					<br />
 					KURSET PASSER BLANT ANNET FOR:<br />
 					<br />
 					Foreldre<br />
@@ -116,7 +116,11 @@
 			<!--<div class="conference-image"><img src="/uploads/29.jpg"></div>-->
 			<div class="conference-button" id="conference-button">
 				@if (isset($access) && $access)
-					<div style="text-align: center;">You successfuly added to this seminar</div>
+                    @if(isset($date) && ($date < time()))
+                        <div style="text-align: center;">You have completed the seminar. <a style="color: #FE3824;" href="/courses/cert/{{ $project_id }}/">Certificate</a> of competence.</div>
+                    @else
+                        <div style="text-align: center;">You successfuly added to this seminar</div>
+                    @endif
 				@elseif (!$user)
 					<div style="text-align: center;">To register for the course you need to <a style="color: #FE3824;" href="/sign_in/">enter the portal</a></div>
 				@else
@@ -140,7 +144,7 @@
 					<p>The best quotes of the 2017</p>
 					<span>72 comments</span>
 					<div class="clear"></div>
-				</a>				
+				</a>
 				<a href="#" class="blocks-block-element">
 					<img src="/uploads/17.jpg">
 					<p>Beautiful Pictures of medical</p>
