@@ -116,7 +116,11 @@
 			<!--<div class="conference-image"><img src="/uploads/29.jpg"></div>-->
 			<div class="conference-button" id="conference-button">
 				@if (isset($access) && $access)
-					<div style="text-align: center;">You successfuly added to this seminar</div>
+                    @if(isset($date) && ($date < time()))
+                        <div style="text-align: center;">You have completed the seminar. <a style="color: #FE3824;" href="/courses/cert/{{ $project_id }}/">Certificate</a> of competence.</div>
+                    @else
+                        <div style="text-align: center;">You successfuly added to this seminar</div>
+                    @endif
 				@elseif (!$user)
 					<div style="text-align: center;">To register for the course you need to <a style="color: #FE3824;" href="/sign_in/">enter the portal</a></div>
 				@else

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use Illuminate\Database\QueryException;
+use Mockery\Exception;
 use UserAuth;
 use APIService;
 use RegisterService;
@@ -32,11 +34,16 @@ class Register {
 
     public static function registerUser($params) {
         $user = new User;
-        $user->name = $params['first_name'].' '.$params['last_name'];
-        $user->email = $params['email'];
-        $user->password = md5($params['pass']);
-        $user->remember_token = md5(time());
-        $user->save();
+
+        try {
+            $user->name = $params['first_name'].' '.$params['last_name'];
+            $user->email = $params['email'];
+            $user->password = md5($params['pass']);
+            $user->remember_token = md5(time());
+            $user->save();
+        } catch(\Exception $e) {
+            throw $e;
+        }
 
         return $user->fresh();
     }

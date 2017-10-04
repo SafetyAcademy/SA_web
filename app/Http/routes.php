@@ -24,3 +24,4 @@ Route::post('/sign_up/', 'BaseController@register');
 Route::get('/courses/', 'BaseController@conferenceAll');
 Route::get('/courses/{project_id}/', 'BaseController@conference');
 Route::get('/courses/accept/{project_id}/', 'BaseController@conferenceLink');
+Route::get('/courses/cert/{project_id}/', 'BaseController@conferenceCert');

@@ -155,6 +155,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        Barryvdh\DomPDF\ServiceProvider::class,
 
     ],
 
@@ -201,6 +202,7 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'PDF' => Barryvdh\DomPDF\Facade::class,
 
         'Result' => App\Libraries\Result::class,
         'User' => App\Libraries\User::class,
@@ -216,6 +218,7 @@ return [
 
         'Conference' => App\Models\Conference::class,
         'ConferenceAccept' => App\Models\ConferenceAccept::class,
+        'ConferenceCert' => App\Models\ConferenceCert::class,
         'Register' => App\Models\Register::class,
     ],
 

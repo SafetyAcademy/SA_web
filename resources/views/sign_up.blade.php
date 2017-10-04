@@ -15,7 +15,8 @@
 			</div>-->
 			<div class="reg-form-block -req">
 				<label>E-post*</label>
-				<input name="email" value="{{{ $data['email'] or '' }}}">
+				{{--<input name="email" value="{{{ $data['email'] or '' }}}">--}}
+				<input name="email" value="vlad@tomin.pro">
                 <div style="color: red">{{{ $err['email'] or '' }}}</div>
 			</div>
 			<!--<div class="reg-form-block -req">
@@ -24,22 +25,26 @@
 			</div>-->
 			<div class="reg-form-block -req">
 				<label>Password*</label>
-				<input type="password" name="pass" value="{{{ $data['pass'] or '' }}}">
+				{{--<input type="password" name="pass" value="{{{ $data['pass'] or '' }}}">--}}
+				<input type="password" name="pass" value="aG5M86gR">
                 <div style="color: red">{{{ $err['pass'] or '' }}}</div>
 			</div>
 			<div class="reg-form-block -req">
 				<label>Repeat password*</label>
-				<input type="password" name="pass_1" value="{{{ $data['pass_1'] or '' }}}">
+				{{--<input type="password" name="pass_1" value="{{{ $data['pass_1'] or '' }}}">--}}
+				<input type="password" name="pass_1" value="aG5M86gR">
                 <div style="color: red">{{{ $err['pass_1'] or '' }}}</div>
 			</div>
 			<div class="reg-form-block -req">
 				<label>Fornavn*</label>
-				<input name="first_name" value="{{{ $data['first_name'] or '' }}}">
+				{{--<input name="first_name" value="{{{ $data['first_name'] or '' }}}">--}}
+				<input name="first_name" value="Test">
                 <div style="color: red">{{{ $err['first_name'] or '' }}}</div>
 			</div>
 			<div class="reg-form-block -req">
 				<label>Mobile Etternavn*</label>
-				<input name="last_name" value="{{ $data['last_name'] or '' }}">
+				{{--<input name="last_name" value="{{ $data['last_name'] or '' }}">--}}
+				<input name="last_name" value="Test">
                 <div style="color: red">{!! $err['last_name'] or '' !!}</div>
 			</div>
 			<!--<div class="reg-form-block">
@@ -48,17 +53,20 @@
 			</div>-->
 			<div class="reg-form-block -req">
 				<label>Gateadresse*</label>
-				<input name="street" value="{{ $data['street'] or '' }}">
+				{{--<input name="street" value="{{ $data['street'] or '' }}">--}}
+				<input name="street" value="Test">
                 <div style="color: red">{!! $err['street'] or '' !!}</div>
 			</div>
 			<div class="reg-form-block">
 				<label>Postnr</label>
-				<input name="postcode" value="{{ $data['postcode'] or '' }}">
+				{{--<input name="postcode" value="{{ $data['postcode'] or '' }}">--}}
+				<input name="postcode" value="443902">
                 <div style="color: red">{!! $err['postcode'] or '' !!}</div>
 			</div>
 			<div class="reg-form-block -req">
 				<label>By/Sted*</label>
-				<input name="city" value="{{ $data['city'] or '' }}">
+				{{--<input name="city" value="{{ $data['city'] or '' }}">--}}
+				<input name="city" value="Test">
                 <div style="color: red">{!! $err['city'] or '' !!}</div>
 			</div>
 			<!--<div class="reg-form-block -req">

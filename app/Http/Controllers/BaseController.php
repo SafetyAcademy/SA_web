@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use ConferenceAccept;
+use Illuminate\Database\QueryException;
+use Mockery\Exception;
 use ProjectsService;
 use Register;
 use Conference;
@@ -11,6 +13,7 @@ use Profile;
 use User;
 use UserAuth;
 use ProjectsAccess;
+use ConferenceCert;
 
 class BaseController extends Controller {
     public function index() {
@@ -54,7 +57,17 @@ class BaseController extends Controller {
         return view('sign_up', []);
     }
 
-    public function register() {
+    public function register(Request $request) {
+//        $param = $request::only(['email', 'pass', 'pass_1', 'first_name', 'last_name', 'street', 'city', 'country', 'postcode']);
+//        $view = ['name' => 'success', 'args' => []];
+//        try {
+//            Register::fromRequest($param);
+//        } catch (\Exception $e) {
+//            $view['name'] = 'sign_up';
+//            $view['args'] = ['err' => $e->getMessage(), 'data' => $param];
+//        }
+//        return view($view['name'], $view['args']);
+
         $param = Request::only(['email', 'pass', 'pass_1', 'first_name', 'last_name', 'street', 'city', 'country', 'postcode']);
         $res = (array)Register::fromRequest($param);
         if ((empty($res['errors']) === true)) {
@@ -62,6 +75,7 @@ class BaseController extends Controller {
         }  else {
             return view('sign_up', ['err' => $res['errors'], 'data' => $param]);
         }
+
     }
 
     public function logout() {
@@ -113,6 +127,7 @@ class BaseController extends Controller {
 
     public function conference($project_id) {
         $access = false;
+        $date = 0;
         $user = UserAuth::getUser();
 
         if ($user) {
@@ -129,7 +144,12 @@ class BaseController extends Controller {
             array_push($conference, Conference::fromObject($arr));
         }
 
-         return view('conference', ['conference' => $conference[0], 'access' => $access, 'arr' => $arr, 'user' => $user, 'project_id' => $project_id]);
+        if(($access === true)) {
+            $date = explode(' ', $conference[0]->date);
+            $date = strtotime($date[0]);
+        }
+
+        return view('conference', ['conference' => $conference[0], 'access' => $access, 'date' => $date, 'arr' => $arr, 'user' => $user, 'project_id' => $project_id]);
     }
 
     public function conferenceLink($project_id) {
@@ -147,5 +167,21 @@ class BaseController extends Controller {
         }
 
         return redirect('/courses/' . $project_id . '/');
+    }
+
+    public function conferenceCert($project_id) {
+        $user = UserAuth::currentUser();
+
+        $pa = $user->projects_accesses()->where('project_id', $project_id)->first();
+        if($pa) {
+            $pdf = ConferenceCert::fromRequest([
+                'name' => $user->name,
+                'project_id' => $project_id,
+            ]);
+
+            return $pdf->download('cert.pdf');
+        } else {
+            return redirect('/courses/' . $project_id . '/');
+        }
     }
 }
